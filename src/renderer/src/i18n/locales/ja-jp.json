@@ -271,7 +271,8 @@
       "copy.success": "コピーしました！",
       "error.get_embedding_dimensions": "埋込み次元を取得できませんでした",
       "group.delete.title": "分組メッセージを削除",
-      "group.delete.content": "分組メッセージを削除するとユーザーの質問と助け手の回答がすべて削除されます"
+      "group.delete.content": "分組メッセージを削除するとユーザーの質問と助け手の回答がすべて削除されます",
+      "mention.title": "モデルを切り替える"
     },
     "minapp": {
       "title": "ミニアプリ",
@@ -624,14 +625,16 @@
         "select": "モデルタイプを選択",
         "text": "テキスト",
         "vision": "画像",
-        "embedding": "埋め込み"
+        "embedding": "埋め込み",
+        "reasoning": "推論"
       },
       "all": "すべて",
-      "vision": "画像モデル",
-      "websearch": "ウェブ検索モデル",
-      "free": "無料モデル",
-      "embedding": "埋め込みモデル",
-      "embedding_model": "埋め込みモデル",
+      "vision": "画像",
+      "websearch": "ウェブ検索",
+      "free": "無料",
+      "reasoning": "推論",
+      "embedding": "埋め込み",
+      "embedding_model": "埋め込み模型",
       "embedding_model_tooltip": "設定->モデルサービス->管理で追加",
       "dimensions": "{{dimensions}} 次元",
       "custom_parameters": "カスタムパラメータ",
@@ -671,6 +674,12 @@
         "esc_back": "戻る",
         "copy_last_message": "C キーを押してコピー"
       }
+    },
+    "auth": {
+      "oauth_button": "{{provider}}で認証",
+      "get_key": "取得",
+      "get_key_success": "APIキーの自動取得に成功しました",
+      "login": "認証"
     }
   }
 }

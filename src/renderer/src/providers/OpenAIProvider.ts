@@ -1,4 +1,4 @@
-import { getOpenAIWebSearchParams, isSupportedModel, isVisionModel } from '@renderer/config/models'
+import { getOpenAIWebSearchParams, isReasoningModel, isSupportedModel, isVisionModel } from '@renderer/config/models'
 import { getStoreSetting } from '@renderer/hooks/useSettings'
 import i18n from '@renderer/i18n'
 import { getAssistantSettings, getDefaultModel, getTopNamingModel } from '@renderer/services/AssistantService'
@@ -23,7 +23,7 @@ export default class OpenAIProvider extends BaseProvider {
   constructor(provider: Provider) {
     super(provider)
 
-    if (provider.id === 'azure-openai') {
+    if (provider.id === 'azure-openai' || provider.type === 'azure-openai') {
       this.sdk = new AzureOpenAI({
         dangerouslyAllowBrowser: true,
         apiKey: this.apiKey,
@@ -118,13 +118,7 @@ export default class OpenAIProvider extends BaseProvider {
   }
 
   private getTemperature(assistant: Assistant, model: Model) {
-    if (model.id.startsWith('o1') || model.id.startsWith('o3')) {
-      return undefined
-    }
-
-    if (model.provider === 'deepseek' && model.id === 'deepseek-reasoner') {
-      return undefined
-    }
+    if (isReasoningModel(model)) return undefined
 
     return assistant?.settings?.temperature
   }
@@ -139,6 +133,18 @@ export default class OpenAIProvider extends BaseProvider {
     }
 
     return {}
+  }
+
+  private getTopP(assistant: Assistant, model: Model) {
+    if (isReasoningModel(model)) return undefined
+
+    return assistant?.settings?.topP
+  }
+
+  private getReasoningEffort(assistant: Assistant, model: Model) {
+    if (isReasoningModel(model)) return assistant?.settings?.reasoning_effort
+
+    return undefined
   }
 
   async completions({ messages, assistant, onChunk, onFilterMessages }: CompletionsParams): Promise<void> {
@@ -165,7 +171,7 @@ export default class OpenAIProvider extends BaseProvider {
     const isOpenAIo1 = model.id.startsWith('o1')
 
     const isSupportStreamOutput = () => {
-      if (this.provider.id === 'github' && isOpenAIo1) {
+      if (isOpenAIo1) {
         return false
       }
       return streamOutput
@@ -182,11 +188,12 @@ export default class OpenAIProvider extends BaseProvider {
         Boolean
       ) as ChatCompletionMessageParam[],
       temperature: this.getTemperature(assistant, model),
-      top_p: assistant?.settings?.topP,
+      top_p: this.getTopP(assistant, model),
       max_tokens: maxTokens,
       keep_alive: this.keepAliveTime,
       stream: isSupportStreamOutput(),
-      ...(assistant.enableWebSearch ? getOpenAIWebSearchParams(model) : {}),
+      reasoning_effort: this.getReasoningEffort(assistant, model),
+      ...getOpenAIWebSearchParams(assistant, model),
       ...this.getProviderSpecificParameters(model),
       ...this.getCustomParameters(assistant)
     })
@@ -225,7 +232,7 @@ export default class OpenAIProvider extends BaseProvider {
       onChunk({
         text: delta?.content || '',
         // @ts-ignore key is not typed
-        reasoning_content: delta?.reasoning_content || delta.reasoning || '',
+        reasoning_content: delta?.reasoning_content || delta?.reasoning || '',
         usage: chunk.usage,
         metrics: {
           completion_tokens: chunk.usage?.completion_tokens,
@@ -251,7 +258,7 @@ export default class OpenAIProvider extends BaseProvider {
       if (!onResponse) {
         return false
       }
-      if (this.provider.id === 'github' && isOpenAIo1) {
+      if (isOpenAIo1) {
         return false
       }
       return true
