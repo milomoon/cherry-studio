@@ -80,4 +80,11 @@ afterPack: scripts/after-pack.js
 afterSign: scripts/notarize.js
 releaseInfo:
   releaseNotes: |
-    错误修复
+    知识库增加更多文件类型支持
+    使用@呼出模型选择列表
+    添加话题固定功能
+    增加导出话题至Notion的功能
+    增加 Google AI Studio 小程序
+    增加 Gitee 服务商
+    增加 PPIO 服务商
+    为 OpenAI 请求添加引用来源数据显示

@@ -12,7 +12,7 @@
 
 Cherry Studio is a desktop client that supports for multiple LLM providers, available on Windows, Mac and Linux.
 
-👏 Join [Telegram Group](https://t.me/CherryStudioAI)｜[Discord](https://discord.gg/wez8HtpxqQ) | [QQ Group](https://qm.qq.com/q/pQPuHMjUeQ)
+👏 Join [Telegram Group](https://t.me/CherryStudioAI)｜[Discord](https://discord.gg/wez8HtpxqQ) | [QQ Group(1022779719)](https://qm.qq.com/q/Qtw8As0cwe)
 
 ❤️ Like Cherry Studio? Give it a star 🌟 or [Sponsor](docs/sponsor.md) to support the development!
 
@@ -115,6 +115,9 @@ We welcome contributions to Cherry Studio! Here are some ways you can contribute
 For more detailed guidelines, please refer to our [Contributing Guide](./CONTRIBUTING.md).
 
 Thank you for your support and contributions!
+
+## Related Projects
+* [one-api](https://github.com/songquanpeng/one-api):LLM API management and distribution system, supporting mainstream models like OpenAI, Azure, and Anthropic. Features unified API interface, suitable for key management and secondary distribution.
 
 # 🚀 Contributors
 

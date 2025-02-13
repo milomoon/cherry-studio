@@ -4,10 +4,12 @@ import AzureProviderLogo from '@renderer/assets/images/models/microsoft.png'
 import AiHubMixProviderLogo from '@renderer/assets/images/providers/aihubmix.jpg'
 import AnthropicProviderLogo from '@renderer/assets/images/providers/anthropic.png'
 import BaichuanProviderLogo from '@renderer/assets/images/providers/baichuan.png'
+import BaiduCloudProviderLogo from '@renderer/assets/images/providers/baidu-cloud.svg'
 import BailianProviderLogo from '@renderer/assets/images/providers/bailian.png'
 import BytedanceProviderLogo from '@renderer/assets/images/providers/bytedance.png'
 import DeepSeekProviderLogo from '@renderer/assets/images/providers/deepseek.png'
 import FireworksProviderLogo from '@renderer/assets/images/providers/fireworks.png'
+import GiteeAIProviderLogo from '@renderer/assets/images/providers/gitee-ai.png'
 import GithubProviderLogo from '@renderer/assets/images/providers/github.png'
 import GoogleProviderLogo from '@renderer/assets/images/providers/google.png'
 import GraphRagProviderLogo from '@renderer/assets/images/providers/graph-rag.png'
@@ -23,7 +25,7 @@ import OcoolAiProviderLogo from '@renderer/assets/images/providers/ocoolai.png'
 import OllamaProviderLogo from '@renderer/assets/images/providers/ollama.png'
 import OpenAiProviderLogo from '@renderer/assets/images/providers/openai.png'
 import OpenRouterProviderLogo from '@renderer/assets/images/providers/openrouter.png'
-import QwenLMProviderLogo from '@renderer/assets/images/providers/qwenlm.png'
+import PPIOProviderLogo from '@renderer/assets/images/providers/ppio.png'
 import SiliconFlowProviderLogo from '@renderer/assets/images/providers/silicon.png'
 import StepProviderLogo from '@renderer/assets/images/providers/step.png'
 import TogetherProviderLogo from '@renderer/assets/images/providers/together.png'
@@ -38,6 +40,8 @@ export function getProviderLogo(providerId: string) {
       return SiliconFlowProviderLogo
     case 'deepseek':
       return DeepSeekProviderLogo
+    case 'gitee-ai':
+      return GiteeAIProviderLogo
     case 'yi':
       return ZeroOneProviderLogo
     case 'groq':
@@ -92,8 +96,10 @@ export function getProviderLogo(providerId: string) {
       return MistralProviderLogo
     case 'jina':
       return JinaProviderLogo
-    case 'qwenlm':
-      return QwenLMProviderLogo
+    case 'ppio':
+      return PPIOProviderLogo
+    case 'baidu-cloud':
+      return BaiduCloudProviderLogo
     default:
       return undefined
   }
@@ -109,6 +115,19 @@ export const PROVIDER_CONFIG = {
       apiKey: 'https://platform.openai.com/api-keys',
       docs: 'https://platform.openai.com/docs',
       models: 'https://platform.openai.com/docs/models'
+    }
+  },
+  ppio: {
+    api: {
+      url: 'https://api.ppinfra.com/v3/openai'
+    },
+    websites: {
+      official:
+        'https://ppinfra.com/model-api/product/llm-api?utm_source=github_cherry-studio&utm_medium=github_readme&utm_campaign=link',
+      apiKey: 'https://ppinfra.com/settings/key-management',
+      docs: 'https://ppinfra.com/docs/model-api/reference/llm/llm.html',
+      models:
+        'https://ppinfra.com/model-api/product/llm-api?utm_source=github_cherry-studio&utm_medium=github_readme&utm_campaign=link'
     }
   },
   gemini: {
@@ -131,6 +150,17 @@ export const PROVIDER_CONFIG = {
       apiKey: 'https://cloud.siliconflow.cn/account/ak?referrer=clxty1xuy0014lvqwh5z50i88',
       docs: 'https://docs.siliconflow.cn/',
       models: 'https://docs.siliconflow.cn/docs/model-names'
+    }
+  },
+  'gitee-ai': {
+    api: {
+      url: 'https://ai.gitee.com'
+    },
+    websites: {
+      official: 'https://ai.gitee.com/',
+      apiKey: 'https://ai.gitee.com/dashboard/settings/tokens',
+      docs: 'https://ai.gitee.com/docs/openapi/v1#tag/%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90/POST/chat/completions',
+      models: 'https://ai.gitee.com/serverless-api'
     }
   },
   deepseek: {
@@ -294,7 +324,7 @@ export const PROVIDER_CONFIG = {
   },
   ollama: {
     api: {
-      url: 'http://localhost:11434/v1/'
+      url: 'http://localhost:11434'
     },
     websites: {
       official: 'https://ollama.com/',
@@ -358,7 +388,7 @@ export const PROVIDER_CONFIG = {
   },
   aihubmix: {
     api: {
-      url: 'https://aihubmix.com?aff=SJyh'
+      url: 'https://aihubmix.com'
     },
     websites: {
       official: 'https://aihubmix.com?aff=SJyh',
@@ -422,15 +452,15 @@ export const PROVIDER_CONFIG = {
       models: 'https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models'
     }
   },
-  qwenlm: {
+  'baidu-cloud': {
     api: {
-      url: 'https://chat.qwenlm.ai/api/'
+      url: 'https://qianfan.baidubce.com/v2/'
     },
     websites: {
-      official: 'https://chat.qwenlm.ai',
-      apiKey: 'https://chat.qwenlm.ai',
-      docs: 'https://chat.qwenlm.ai',
-      models: 'https://chat.qwenlm.ai'
+      official: 'https://cloud.baidu.com/',
+      apiKey: 'https://cloud.baidu.com/console/qianfan/apikey',
+      docs: 'https://cloud.baidu.com/doc/index.html',
+      models: 'https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Fm2vrveyu'
     }
   }
 }

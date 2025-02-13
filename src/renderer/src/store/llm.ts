@@ -19,9 +19,9 @@ export interface LlmState {
 }
 
 const initialState: LlmState = {
-  defaultModel: SYSTEM_MODELS.silicon[0],
-  topicNamingModel: SYSTEM_MODELS.silicon[0],
-  translateModel: SYSTEM_MODELS.silicon[0],
+  defaultModel: SYSTEM_MODELS.silicon[1],
+  topicNamingModel: SYSTEM_MODELS.silicon[2],
+  translateModel: SYSTEM_MODELS.silicon[3],
   providers: [
     {
       id: 'silicon',
@@ -44,11 +44,41 @@ const initialState: LlmState = {
       enabled: false
     },
     {
+      id: 'deepseek',
+      name: 'deepseek',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://api.deepseek.com',
+      models: SYSTEM_MODELS.deepseek,
+      isSystem: true,
+      enabled: false
+    },
+    {
+      id: 'ocoolai',
+      name: 'ocoolAI',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://one.ooo.cool',
+      models: SYSTEM_MODELS.ocoolai,
+      isSystem: true,
+      enabled: false
+    },
+    {
+      id: 'baidu-cloud',
+      name: 'Baidu Cloud',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://qianfan.baidubce.com/v2/',
+      models: SYSTEM_MODELS['baidu-cloud'],
+      isSystem: true,
+      enabled: false
+    },
+    {
       id: 'ollama',
       name: 'Ollama',
       type: 'openai',
       apiKey: '',
-      apiHost: 'http://localhost:11434/v1/',
+      apiHost: 'http://localhost:11434',
       models: SYSTEM_MODELS.ollama,
       isSystem: true,
       enabled: false
@@ -91,26 +121,6 @@ const initialState: LlmState = {
       apiKey: '',
       apiHost: 'https://generativelanguage.googleapis.com',
       models: SYSTEM_MODELS.gemini,
-      isSystem: true,
-      enabled: false
-    },
-    {
-      id: 'deepseek',
-      name: 'deepseek',
-      type: 'openai',
-      apiKey: '',
-      apiHost: 'https://api.deepseek.com',
-      models: SYSTEM_MODELS.deepseek,
-      isSystem: true,
-      enabled: false
-    },
-    {
-      id: 'ocoolai',
-      name: 'ocoolAI',
-      type: 'openai',
-      apiKey: '',
-      apiHost: 'https://one.ooo.cool',
-      models: SYSTEM_MODELS.ocoolai,
       isSystem: true,
       enabled: false
     },
@@ -201,16 +211,6 @@ const initialState: LlmState = {
       apiKey: '',
       apiHost: 'https://api.minimax.chat/v1/',
       models: SYSTEM_MODELS.minimax,
-      isSystem: true,
-      enabled: false
-    },
-    {
-      id: 'graphrag-kylin-mountain',
-      name: 'GraphRAG',
-      type: 'openai',
-      apiKey: '',
-      apiHost: '',
-      models: [],
       isSystem: true,
       enabled: false
     },
@@ -325,12 +325,22 @@ const initialState: LlmState = {
       enabled: false
     },
     {
-      id: 'qwenlm',
-      name: 'QwenLM',
+      id: 'gitee-ai',
+      name: 'gitee ai',
       type: 'openai',
       apiKey: '',
-      apiHost: 'https://chat.qwenlm.ai/api/',
-      models: SYSTEM_MODELS.qwenlm,
+      apiHost: 'https://ai.gitee.com',
+      models: SYSTEM_MODELS['gitee-ai'],
+      isSystem: true,
+      enabled: false
+    },
+    {
+      id: 'ppio',
+      name: 'PPIO',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://api.ppinfra.com/v3/openai',
+      models: SYSTEM_MODELS.ppio,
       isSystem: true,
       enabled: false
     }

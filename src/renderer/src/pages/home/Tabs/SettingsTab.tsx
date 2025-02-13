@@ -29,7 +29,8 @@ import {
   setShowInputEstimatedTokens,
   setShowMessageDivider
 } from '@renderer/store/settings'
-import { Assistant, AssistantSettings, ThemeMode } from '@renderer/types'
+import { Assistant, AssistantSettings, ThemeMode, TranslateLanguageVarious } from '@renderer/types'
+import { modalConfirm } from '@renderer/utils'
 import { Col, InputNumber, Row, Select, Slider, Switch, Tooltip } from 'antd'
 import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -59,6 +60,8 @@ const SettingsTab: FC<Props> = (props) => {
     showInputEstimatedTokens,
     sendMessageShortcut,
     setSendMessageShortcut,
+    targetLanguage,
+    setTargetLanguage,
     pasteLongTextAsFile,
     renderInputMessageAsMarkdown,
     codeShowLineNumbers,
@@ -104,7 +107,6 @@ const SettingsTab: FC<Props> = (props) => {
         maxTokens: DEFAULT_MAX_TOKENS,
         streamOutput: true,
         hideMessages: false,
-        autoResetModel: false,
         customParameters: []
       }
     })
@@ -176,7 +178,7 @@ const SettingsTab: FC<Props> = (props) => {
           />
         </SettingRow>
         <SettingDivider />
-        <Row align="middle" justify="space-between">
+        <Row align="middle" justify="space-between" style={{ marginBottom: 10 }}>
           <HStack alignItems="center">
             <Label>{t('chat.settings.max_tokens')}</Label>
             <Tooltip title={t('chat.settings.max_tokens.tip')}>
@@ -186,25 +188,39 @@ const SettingsTab: FC<Props> = (props) => {
           <Switch
             size="small"
             checked={enableMaxTokens}
-            onChange={(enabled) => {
+            onChange={async (enabled) => {
+              if (enabled) {
+                const confirmed = await modalConfirm({
+                  title: t('chat.settings.max_tokens.confirm'),
+                  content: t('chat.settings.max_tokens.confirm_content'),
+                  okButtonProps: {
+                    danger: true
+                  }
+                })
+                if (!confirmed) return
+              }
               setEnableMaxTokens(enabled)
               onUpdateAssistantSettings({ enableMaxTokens: enabled })
             }}
           />
         </Row>
-        <Row align="middle" gutter={10}>
-          <Col span={24}>
-            <Slider
-              disabled={!enableMaxTokens}
-              min={0}
-              max={32000}
-              onChange={setMaxTokens}
-              onChangeComplete={onMaxTokensChange}
-              value={typeof maxTokens === 'number' ? maxTokens : 0}
-              step={100}
-            />
-          </Col>
-        </Row>
+        {enableMaxTokens && (
+          <Row align="middle" gutter={10}>
+            <Col span={24}>
+              <InputNumber
+                disabled={!enableMaxTokens}
+                min={0}
+                max={10000000}
+                step={100}
+                value={typeof maxTokens === 'number' ? maxTokens : 0}
+                changeOnBlur
+                onChange={(value) => value && setMaxTokens(value)}
+                onBlur={() => onMaxTokensChange(maxTokens)}
+                style={{ width: '100%' }}
+              />
+            </Col>
+          </Row>
+        )}
       </SettingGroup>
       <SettingGroup>
         <SettingSubtitle style={{ marginTop: 0 }}>{t('settings.messages.title')}</SettingSubtitle>
@@ -378,6 +394,25 @@ const SettingsTab: FC<Props> = (props) => {
             <SettingDivider />
           </>
         )}
+        <SettingRow>
+          <SettingRowTitleSmall>{t('settings.input.target_language')}</SettingRowTitleSmall>
+          <Select
+            defaultValue={'english' as TranslateLanguageVarious}
+            size="small"
+            value={targetLanguage}
+            menuItemSelectedIcon={<CheckOutlined />}
+            options={[
+              { value: 'chinese', label: t('settings.input.target_language.chinese') },
+              { value: 'chinese-traditional', label: t('settings.input.target_language.chinese-traditional') },
+              { value: 'english', label: t('settings.input.target_language.english') },
+              { value: 'japanese', label: t('settings.input.target_language.japanese') },
+              { value: 'russian', label: t('settings.input.target_language.russian') }
+            ]}
+            onChange={(value) => setTargetLanguage(value)}
+            style={{ width: 135 }}
+          />
+        </SettingRow>
+        <SettingDivider />
         <SettingRow>
           <SettingRowTitleSmall>{t('settings.messages.input.send_shortcuts')}</SettingRowTitleSmall>
           <Select
