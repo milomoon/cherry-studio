@@ -1,3 +1,5 @@
+import ThreeMinTopAppLogo from '@renderer/assets/images/apps/3mintop.png?url'
+import AIStudioLogo from '@renderer/assets/images/apps/aistudio.svg?url'
 import BaiduAiAppLogo from '@renderer/assets/images/apps/baidu-ai.png?url'
 import BaicuanAppLogo from '@renderer/assets/images/apps/baixiaoying.webp?url'
 import BoltAppLogo from '@renderer/assets/images/apps/bolt.svg?url'
@@ -24,7 +26,9 @@ import SparkDeskAppLogo from '@renderer/assets/images/apps/sparkdesk.png?url'
 import ThinkAnyLogo from '@renderer/assets/images/apps/thinkany.webp?url'
 import TiangongAiLogo from '@renderer/assets/images/apps/tiangong.png?url'
 import WanZhiAppLogo from '@renderer/assets/images/apps/wanzhi.jpg?url'
+import XiaoYiAppLogo from '@renderer/assets/images/apps/xiaoyi.webp?url'
 import TencentYuanbaoAppLogo from '@renderer/assets/images/apps/yuanbao.png?url'
+import NotebookLMAppLogo from '@renderer/assets/images/apps/notebooklm.svg?url'
 import YuewenAppLogo from '@renderer/assets/images/apps/yuewen.png?url'
 import ZhihuAppLogo from '@renderer/assets/images/apps/zhihu.png?url'
 import ClaudeAppLogo from '@renderer/assets/images/models/claude.png?url'
@@ -268,6 +272,32 @@ export const DEFAULT_MIN_APPS: MinAppType[] = [
     logo: FlowithAppLogo,
     url: 'https://www.flowith.io/',
     bodered: true
+  },
+  {
+    id: '3mintop',
+    name: '3MinTop',
+    logo: ThreeMinTopAppLogo,
+    url: 'https://3min.top',
+    bodered: false
+  },
+  {
+    id: 'aistudio',
+    name: 'AI Studio',
+    logo: AIStudioLogo,
+    url: 'https://aistudio.google.com/'
+  },
+  {
+    id: 'xiaoyi',
+    name: '小艺',
+    logo: XiaoYiAppLogo,
+    url: 'https://xiaoyi.huawei.com/chat/',
+    bodered: true
+  },
+  {
+    id: 'notebooklm',
+    name: 'NotebookLM',
+    logo: NotebookLMAppLogo,
+    url: 'https://notebooklm.google.com/',
   }
 ]
 

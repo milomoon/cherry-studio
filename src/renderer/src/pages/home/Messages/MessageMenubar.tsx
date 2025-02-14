@@ -197,7 +197,8 @@ const MessageMenubar: FC<Props> = (props) => {
 
   const onRegenerate = async () => {
     await modelGenerating()
-    const _message: Message = resetAssistantMessage(message, assistantModel)
+    const selectedModel = isGrouped ? model : assistantModel
+    const _message = resetAssistantMessage(message, selectedModel)
     onEditMessage?.(_message)
   }
 
@@ -249,7 +250,7 @@ const MessageMenubar: FC<Props> = (props) => {
         </Popconfirm>
       )}
       {isAssistantMessage && (
-        <Tooltip title={t('common.regenerate')} mouseEnterDelay={0.8}>
+        <Tooltip title={t('message.mention.title')} mouseEnterDelay={0.8}>
           <ActionButton className="message-action-button" onClick={onMentionModel}>
             <i className="iconfont icon-at" style={{ fontSize: 16 }}></i>
           </ActionButton>
@@ -281,7 +282,7 @@ const MessageMenubar: FC<Props> = (props) => {
           </Tooltip>
         </Dropdown>
       )}
-      {isAssistantMessage && (
+      {isAssistantMessage && isGrouped && (
         <Tooltip title={t('chat.message.useful')} mouseEnterDelay={0.8}>
           <ActionButton className="message-action-button" onClick={onUseful}>
             {message.useful ? <LikeFilled /> : <LikeOutlined />}

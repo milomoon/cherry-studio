@@ -71,7 +71,7 @@ const migrateConfig = {
             id: 'ollama',
             name: 'Ollama',
             apiKey: '',
-            apiHost: 'http://localhost:11434/v1/',
+            apiHost: 'http://localhost:11434',
             isSystem: true,
             models: []
           }
@@ -888,6 +888,153 @@ const migrateConfig = {
         provider.type = 'qwenlm'
       }
     })
+    return state
+  },
+  '62': (state: RootState) => {
+    state.llm.providers.forEach((provider) => {
+      if (provider.id === 'azure-openai') {
+        provider.type = 'azure-openai'
+      }
+    })
+    state.settings.translateModelPrompt = TRANSLATE_PROMPT
+    return state
+  },
+  '63': (state: RootState) => {
+    if (state.minapps) {
+      const mintop = DEFAULT_MIN_APPS.find((app) => app.id === '3mintop')
+      if (mintop) {
+        state.minapps.enabled.push(mintop)
+      }
+    }
+    return state
+  },
+  '64': (state: RootState) => {
+    state.llm.providers = state.llm.providers.filter((provider) => provider.id !== 'qwenlm')
+    state.llm.providers.push({
+      id: 'baidu-cloud',
+      name: 'Baidu Cloud',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://qianfan.baidubce.com/v2/',
+      models: SYSTEM_MODELS['baidu-cloud'],
+      isSystem: true,
+      enabled: false
+    })
+    return state
+  },
+  '65': (state: RootState) => {
+    state.settings.targetLanguage = 'english'
+    return state
+  },
+  '66': (state: RootState) => {
+    state.llm.providers.push(
+      {
+        id: 'gitee-ai',
+        name: 'gitee ai',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://ai.gitee.com',
+        models: SYSTEM_MODELS['gitee-ai'],
+        isSystem: true,
+        enabled: false
+      },
+      {
+        id: 'ppio',
+        name: 'PPIO',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://api.ppinfra.com/v3/openai',
+        models: SYSTEM_MODELS.ppio,
+        isSystem: true,
+        enabled: false
+      }
+    )
+
+    state.llm.providers = state.llm.providers.filter((provider) => provider.id !== 'graphrag-kylin-mountain')
+
+    if (state.minapps) {
+      const aistudio = DEFAULT_MIN_APPS.find((app) => app.id === 'aistudio')
+      if (aistudio) {
+        state.minapps.enabled.push(aistudio)
+      }
+    }
+
+    return state
+  },
+  '67': (state: RootState) => {
+    if (state.minapps) {
+      const xiaoyi = DEFAULT_MIN_APPS.find((app) => app.id === 'xiaoyi')
+      if (xiaoyi) {
+        state.minapps.enabled.push(xiaoyi)
+      }
+    }
+
+    state.llm.providers.push(
+      {
+        id: 'modelscope',
+        name: 'ModelScope',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://api-inference.modelscope.cn/v1/',
+        models: SYSTEM_MODELS.modelscope,
+        isSystem: true,
+        enabled: false
+      },
+      {
+        id: 'lmstudio',
+        name: 'LM Studio',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'http://localhost:1234',
+        models: SYSTEM_MODELS.lmstudio,
+        isSystem: true,
+        enabled: false
+      },
+      {
+        id: 'perplexity',
+        name: 'Perplexity',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://api.perplexity.ai/',
+        models: SYSTEM_MODELS.perplexity,
+        isSystem: true,
+        enabled: false
+      },
+      {
+        id: 'infini',
+        name: 'Infini',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://cloud.infini-ai.com/maas',
+        models: SYSTEM_MODELS.infini,
+        isSystem: true,
+        enabled: false
+      },
+      {
+        id: 'dmxapi',
+        name: 'DMXAPI',
+        type: 'openai',
+        apiKey: '',
+        apiHost: 'https://api.dmxapi.com',
+        models: SYSTEM_MODELS.dmxapi,
+        isSystem: true,
+        enabled: false
+      }
+    )
+
+    state.llm.settings.lmstudio = {
+      keepAliveTime: 5
+    }
+
+    return state
+  },
+  '68': (state: RootState) => {
+    if (state.minapps) {
+      const notebooklm = DEFAULT_MIN_APPS.find((app) => app.id === 'notebooklm')
+      if (notebooklm) {
+        state.minapps.enabled.push(notebooklm)
+      }
+    }
     return state
   }
 }

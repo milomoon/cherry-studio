@@ -71,8 +71,8 @@ const api = {
       item: KnowledgeItem
       forceReload?: boolean
     }) => ipcRenderer.invoke('knowledge-base:add', { base, item, forceReload }),
-    remove: ({ uniqueId, base }: { uniqueId: string; base: KnowledgeBaseParams }) =>
-      ipcRenderer.invoke('knowledge-base:remove', { uniqueId, base }),
+    remove: ({ uniqueId, uniqueIds, base }: { uniqueId: string; uniqueIds: string[]; base: KnowledgeBaseParams }) =>
+      ipcRenderer.invoke('knowledge-base:remove', { uniqueId, uniqueIds, base }),
     search: ({ search, base }: { search: string; base: KnowledgeBaseParams }) =>
       ipcRenderer.invoke('knowledge-base:search', { search, base })
   },
@@ -99,6 +99,11 @@ const api = {
     hide: () => ipcRenderer.invoke('miniwindow:hide'),
     close: () => ipcRenderer.invoke('miniwindow:close'),
     toggle: () => ipcRenderer.invoke('miniwindow:toggle')
+  },
+  aes: {
+    encrypt: (text: string, secretKey: string, iv: string) => ipcRenderer.invoke('aes:encrypt', text, secretKey, iv),
+    decrypt: (encryptedData: string, iv: string, secretKey: string) =>
+      ipcRenderer.invoke('aes:decrypt', encryptedData, iv, secretKey)
   }
 }
 
